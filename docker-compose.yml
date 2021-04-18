@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  php7-xdebug:
+    build: .
+    container_name: php7-xdebug
+    restart: always
+    ports: 
+      - 2101:80
