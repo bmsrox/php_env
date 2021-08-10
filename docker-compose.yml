@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  php7-xdebug:
+  php8-xdebug:
     build: .
-    container_name: php7-xdebug
+    container_name: php8-xdebug
     restart: always
     ports: 
       - 2101:80

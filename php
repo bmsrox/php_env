@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose exec php7-xdebug php $@
+docker-compose exec php8-xdebug php $@
