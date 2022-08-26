@@ -2,8 +2,14 @@ version: '3'
 
 services:
   php8-xdebug:
-    build: .
+    build: ./php
     container_name: php8-xdebug
     restart: always
     ports: 
       - 2101:80
+  python3.8:
+    build: ./python
+    container_name: python3.8
+    restart: always
+    ports: 
+      - 2102:80
