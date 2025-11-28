@@ -1,12 +1,14 @@
-version: '3'
-
 services:
   php8-xdebug:
     build: ./php
-    container_name: php8-xdebug
+    container_name: php-local
     restart: always
+    volumes:
+      - ~/Workspace/projects:/var/www/html
     ports: 
       - 2101:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   python3.8:
     build: ./python
     container_name: python3.8

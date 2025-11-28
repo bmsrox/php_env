@@ -1,4 +1,4 @@
-FROM php:8.2.2-apache
+FROM php:8.4.10-apache
 
 RUN apt update && \ 
     apt install -y libzip-dev curl git openssl libssl-dev && \
@@ -11,6 +11,8 @@ RUN docker-php-ext-install pdo pdo_mysql zip && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     chmod +x /usr/local/bin/composer
 
+COPY ./99-xdebug.ini /usr/local/etc/php/conf.d/99-xdebug.ini
+
 RUN cd /tmp && git clone https://github.com/swoole/swoole-src.git && \
     cd swoole-src && \
     phpize  && \
@@ -20,12 +22,4 @@ RUN cd /tmp && git clone https://github.com/swoole/swoole-src.git && \
 RUN touch /usr/local/etc/php/conf.d/swoole.ini && \
     echo 'extension=swoole.so' > /usr/local/etc/php/conf.d/swoole.ini
 
-RUN echo "xdebug.idekey=docker" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.log=/var/log/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.client_port=9000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    echo "xdebug.discover_client_host=true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
